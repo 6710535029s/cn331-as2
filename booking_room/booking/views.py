@@ -10,6 +10,21 @@ from .models import Booking
 def home_view(request):
     return render(request, 'booking/home.html')
 
+# ฟังก์ชันสมัครสมาชิก
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        confirm = request.POST['confirm']
+        # ตรวจสอบว่ารหัสผ่านตรงกันหรือไม่
+        if password == confirm:
+            User.objects.create_user(username=username, password=password)
+            messages.success(request, 'สมัครสมาชิกสำเร็จ')
+            return redirect('login')
+        else:
+            messages.error(request, 'รหัสผ่านไม่ตรงกัน')
+    return render(request, 'booking/register.html')
+
 # ฟังก์ชันเข้าสู่ระบบ
 def login_view(request):
     if request.method == 'POST':
@@ -28,22 +43,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-# ฟังก์ชันสมัครสมาชิก
-def register_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        confirm = request.POST['confirm']
-        # ตรวจสอบว่ารหัสผ่านตรงกันหรือไม่
-        if password == confirm:
-            User.objects.create_user(username=username, password=password)
-            messages.success(request, 'สมัครสมาชิกสำเร็จ')
-            return redirect('login')
-        else:
-            messages.error(request, 'รหัสผ่านไม่ตรงกัน')
-    return render(request, 'booking/register.html')
-
+    
 # ฟังก์ชันจองห้องเรียน (ต้อง login ก่อน)
 @login_required(login_url='login')
 def book_room_view(request):
@@ -76,3 +76,4 @@ def book_room_view(request):
 def my_bookings_view(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'booking/my_bookings.html', {'bookings': bookings})
+
