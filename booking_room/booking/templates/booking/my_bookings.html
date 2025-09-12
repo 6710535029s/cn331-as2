@@ -1,0 +1,138 @@
+<!--หน้านี้เป็นหน้า User Profile ที่ผู้ใช้สามารถ ดูรายการห้องที่ตัวเองจองไว้ได้ และมีปุ่มกดยกเลิก มุมขวาบนจะมีกากบาทเพื่อออกจากหน้านี้และกลับสู่หน้าHome-->
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>โปรไฟล์ผู้ใช้</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      background-color: #b30000;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .username {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    /*ปุ่มออกจากหน้านี้*/
+
+    .exit-link {
+      font-size: 18px;
+      text-decoration: none;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 50%;
+      border: 1px solid white;
+      transition: background-color 0.3s;
+    }
+
+    .exit-link:hover {
+      background-color: white;
+      color: #b30000;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .booking-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .room-name {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .confirm-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .confirm-btn:hover {
+      background-color: #388E3C;
+    }
+
+    .cancel-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .cancel-btn:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="username">ชื่อผู้ใช้: คุณสมชาย</div>
+    <a href="/logout" class="exit-link" title="ออกจากระบบ">×</a>
+  </header>
+
+  <div class="container">
+    <h2>รายการห้องที่คุณจอง</h2>
+
+    <div class="booking-item">
+      <div class="room-name">ห้องเรียน 101</div>
+      <div class="action-buttons">
+        <button class="confirm-btn">ยืนยัน</button>
+        <button class="cancel-btn">ยกเลิก</button>
+      </div>
+    </div>
+
+    <div class="booking-item">
+      <div class="room-name">ห้องประชุม A</div>
+      <div class="action-buttons">
+        <button class="confirm-btn">ยืนยัน</button>
+        <button class="cancel-btn">ยกเลิก</button>
+      </div>
+    </div>
+
+    <div class="booking-item">
+      <div class="room-name">ห้องเรียน 202</div>
+      <div class="action-buttons">
+        <button class="confirm-btn">ยืนยัน</button>
+        <button class="cancel-btn">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
