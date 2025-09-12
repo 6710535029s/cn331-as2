@@ -44,36 +44,4 @@ def logout_view(request):
     logout(request)
     return redirect('login')
     
-# ฟังก์ชันจองห้องเรียน (ต้อง login ก่อน)
-@login_required(login_url='login')
-def book_room_view(request):
-    if request.method == 'POST':
-        form = BookingForm(request.POST)
-        if form.is_valid():
-            classroom = form.cleaned_data['classroom']
-            date = form.cleaned_data['date']
-            hour = form.cleaned_data['hour']
-
-            # ตรวจสอบว่าผู้ใช้จองห้องนี้ในเวลานี้ไปแล้วหรือยัง
-            if Booking.objects.filter(user=request.user, classroom=classroom, date=date, hour=hour).exists():
-                messages.error(request, 'คุณจองห้องนี้ในเวลานี้ไปแล้ว')
-            # ตรวจสอบว่าห้องนี้ถูกจองในเวลานี้โดยคนอื่นหรือยัง
-            elif Booking.objects.filter(classroom=classroom, date=date, hour=hour).exists():
-                messages.error(request, 'เวลานี้ถูกจองไปแล้ว')
-            else:
-                # บันทึกการจอง
-                booking = form.save(commit=False)
-                booking.user = request.user
-                booking.save()
-                messages.success(request, 'จองห้องเรียนสำเร็จ')
-                return redirect('my_bookings')
-    else:
-        form = BookingForm()
-    return render(request, 'booking/book_room.html', {'form': form})
-
-# ฟังก์ชันแสดงรายการจองของผู้ใช้
-@login_required(login_url='login')
-def my_bookings_view(request):
-    bookings = Booking.objects.filter(user=request.user)
-    return render(request, 'booking/my_bookings.html', {'bookings': bookings})
 
