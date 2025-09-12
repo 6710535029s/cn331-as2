@@ -6,12 +6,21 @@
 # คะแนนพิเศษ (optional) -- Admin เห็นรายชื่อผู้ใช้ที่จองแต่ละห้อง (นอกเหนือจาก Django Admin ), กำหนดช่วงเวลาจองได้
 # ----------------------------------------------------------------------
 # CN331 Assignment 2 – Classroom Booking
-
+classroom_booking/
+├── booking/              # แอปหลัก
+│   ├── models.py         # โมเดลข้อมูล
+│   ├── views.py          # ฟังก์ชันจัดการหน้าเว็บ
+│   ├── urls.py           # เส้นทาง URL
+│   ├── templates/        # HTML templates
+│   └── forms.py          # ฟอร์มสำหรับจอง
+├── classroom_booking/
+│   ├── settings.py
+│   ├── urls.py
+└── manage.py
 
 ## Members
 - 6710535029 – นายวุฒิศักดิ์ บุญกัน
 - 67xxxxxxx – 
-
 
 ## Features
 - Login/Logout (admin, users)
