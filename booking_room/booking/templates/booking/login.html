@@ -1,0 +1,96 @@
+<!--หน้านี้เป็นหน้าล็อกอิน-->
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Library</title>
+    <style>
+        /* Reset เบื้องต้น */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Sarabun", sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f2f2f2;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            width: 350px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .login-container button {
+        width: 80%;       /* ปรับความกว้างให้เล็กลงจาก 100% */
+        padding: 8px;     /* ปรับความสูงให้เล็กลงจาก 12px */
+        background-color: #ff0000;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-size: 14px;  /* ปรับขนาดตัวอักษรให้เล็กลง */
+        cursor: pointer;
+        display: block;
+        margin: 15px auto 0 auto; /* กึ่งกลางปุ่ม */
+        }
+
+        .login-container button:hover {
+        background-color: #6b0505;
+        }
+
+        .login-container .forgot {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .login-container .forgot a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-container .forgot a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Study Rooom Booking</h2>
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
+            <input type="password" name="password" placeholder="รหัสผ่าน" required>
+            <button type="submit">เข้าสู่ระบบ</button>
+        </form>
+        <div class="forgot">
+            <a href="#">ลืมรหัสผ่าน?</a>
+        </div>
+    </div>
+</body>
+</html>
+
