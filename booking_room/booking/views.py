@@ -30,4 +30,5 @@ def cancel_booking(request, booking_id):
 @login_required
 def booking_page(request, classroom_id):
   
-    return render(request, 'booking/my_bookings.html', context)
+    return render(request, 'booking/my_booking.html', context)
+
