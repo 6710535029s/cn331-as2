@@ -21,9 +21,7 @@ def user_profile_view(request):
 
 @login_required
 def cancel_booking(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    if request.method == 'POST':
-        booking.delete()
+
         return redirect('user_profile')
     
 #mybooking
@@ -31,4 +29,5 @@ def cancel_booking(request, booking_id):
 def booking_page(request, classroom_id):
   
     return render(request, 'booking/my_booking.html', context)
+
 
