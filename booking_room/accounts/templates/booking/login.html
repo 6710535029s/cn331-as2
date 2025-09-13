@@ -1,4 +1,3 @@
-<!-- หน้านี้เป็นหน้าล็อกอิน -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -96,7 +95,7 @@
         </div>
         {% endif %}
 
-        <form action="{% url 'login' %}" method="POST">
+        <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
             <input type="password" name="password" placeholder="รหัสผ่าน" required>
