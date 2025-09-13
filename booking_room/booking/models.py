@@ -9,8 +9,8 @@ class Classroom(models.Model):
         ('maintenance', 'ปิดปรับปรุง'),
     ]
     code = models.CharField(max_length=20, unique=True, default='RM000'))
-    name = models.CharField(max_length=100)
-    capacity = models.IntegerField()
+    name = models.CharField(max_length=100, defult = ('ห้องเรียนทั่วไป'))
+    capacity = models.IntegerField(defult = 30)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
 
     def __str__(self):
@@ -24,5 +24,6 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.classroom.code} | {self.date} | {self.hour}"
+
 
 
