@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 class Classroom(models.Model):
@@ -18,9 +19,10 @@ class Classroom(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.DateField(default=timezone.now)
     hour = models.IntegerField()
 
     def __str__(self):
         return f"{self.classroom.code} | {self.date} | {self.hour}"
+
 
