@@ -31,12 +31,27 @@ def my_bookings(request):
 def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
     if request.method == 'POST':
-        # คืน available_hours ให้ห้องเรียน (ถ้ามีระบบนี้)
-        duration = (datetime.combine(booking.date, booking.end_time) -
-                    datetime.combine(booking.date, booking.start_time)).seconds // 3600
-        if hasattr(booking.classroom, 'available_hours'):
-            booking.classroom.available_hours += duration
-            booking.classroom.save()
+        booking.delete()
+        return redirect('user_profile')
+
+    
+# ติดต่อส่งชื่อ username ไปที่ user_profile
+@login_required(login_url='login')
+def user_profile_view(request):
+    bookings = Booking.objects.filter(user=request.user)
+    return render(request, 'booking/user_profile.html', {'bookings': bookings})
+
+    
+# cancel booking
+@login_required
+def cancel_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    if request.method == 'POST':
+        # คืน available_hours ให้ห้องเรียน
+        duration = (datetime.combine(booking.booking_date, booking.end_time) -
+                    datetime.combine(booking.booking_date, booking.start_time)).seconds // 3600
+        booking.classroom.available_hours += duration
+        booking.classroom.save()
         booking.delete()
         messages.success(request, "ยกเลิกการจองเรียบร้อยแล้ว")
         return redirect('user_profile')
@@ -75,3 +90,4 @@ def booking_page(request, classroom_id):
         'room': room,
     }
     return render(request, 'booking/my_booking.html', context)
+
