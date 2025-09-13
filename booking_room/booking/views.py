@@ -19,15 +19,11 @@ def user_profile_view(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'booking/user_profile.html', {'bookings': bookings})
 
-@login_required
-def cancel_booking(request, booking_id):
-
-        return redirect('user_profile')
-    
 #mybooking
 @login_required
 def booking_page(request, classroom_id):
   
     return render(request, 'booking/my_booking.html', context)
+
 
 
