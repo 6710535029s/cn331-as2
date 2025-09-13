@@ -29,7 +29,8 @@ def user_profile_view(request):
 @login_required
 def booking_page(request, classroom_id):
   
-    return render(request, 'booking/my_booking.html', context)
+    return render(request, 'booking/my_booking.html')
+
 
 
 
