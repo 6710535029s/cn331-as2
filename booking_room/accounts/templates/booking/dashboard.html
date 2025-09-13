@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f9f9f9; }
+        h2 { margin-top: 40px; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+    <h1>รายชื่อผู้ใช้ที่จองห้องเรียน</h1>
+
+    {% for room, bookings in bookings_by_room.items %}
+  <h2>{{ room.name }} ({{ room.code }})</h2>
+  <table>
+    <tr>
+      <th>Username</th>
+      <th>วันที่</th>
+      <th>เวลาเริ่ม</th>
+      <th>เวลาสิ้นสุด</th>
+    </tr>
+    {% for booking in bookings %}
+    <tr>
+      <td>{{ booking.user.username }}</td>
+      <td>{{ booking.date }}</td>
+      <td>{{ booking.start_time }}</td>
+      <td>{{ booking.end_time }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endfor %}
+
