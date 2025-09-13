@@ -44,11 +44,12 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
+# หน้าโปรไฟล์ผู้ใช้
 @login_required(login_url='login')
 def user_profile_view(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'booking/user_profile.html', {'bookings': bookings})
+
 
 
 
