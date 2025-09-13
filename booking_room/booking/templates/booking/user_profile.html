@@ -105,7 +105,8 @@
 <body>
 
   <header>
-    <div class="username">ชื่อผู้ใช้: คุณสมชาย</div>
+    <!-- ใช้ request.user.username เพื่อแสดงชื่อผู้ใช้ -->
+    <div class="username">ชื่อผู้ใช้: {{ request.user.username }}</div>
     <div class="header-actions">
       <a href="/home" class="nav-btn" title="กลับสู่หน้า Home">🏠 Home</a>
       <a href="/logout" class="nav-btn" title="ออกจากระบบ">⎋ Logout</a>
@@ -151,3 +152,4 @@
 
 </body>
 </html>
+

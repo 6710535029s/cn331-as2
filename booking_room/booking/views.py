@@ -20,6 +20,7 @@ def user_profile_view(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'booking/user_profile.html', {'bookings': bookings})
 
+
 # ติดต่อส่งชื่อ username ไปที่ my_booking.py
 @login_required
 def my_bookings(request):
@@ -32,6 +33,14 @@ def cancel_booking(request, booking_id):
     if request.method == 'POST':
         booking.delete()
         return redirect('user_profile')
+
+    
+# ติดต่อส่งชื่อ username ไปที่ my_booking.py
+@login_required(login_url='login')
+def user_profile_view(request):
+    bookings = Booking.objects.filter(user=request.user)
+    return render(request, 'booking/my_booking.html', {'bookings': bookings})
+
     
 # cancel booking
 @login_required

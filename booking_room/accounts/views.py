@@ -19,13 +19,10 @@ def register_view(request):
             messages.success(request, 'สมัครสมาชิกสำเร็จ')
             return redirect('login')
 
-     return render(request, 'booking/register.html')
+    return render(request, 'booking/register.html')
+
 
 # ฟังก์ชันเข้าสู่ระบบ
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -42,6 +39,4 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-
 
