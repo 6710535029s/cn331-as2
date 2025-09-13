@@ -19,7 +19,7 @@ def register_view(request):
             messages.success(request, 'สมัครสมาชิกสำเร็จ')
             return redirect('login')
 
-    return render(request, 'booking/register.html')
+    return render(request, 'accounts/login.html')
 
 
 # ฟังก์ชันเข้าสู่ระบบ
@@ -35,12 +35,13 @@ def login_view(request):
         else:
             messages.error(request, 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
 
-    return render(request, 'booking/login.html')
+    return render(request, 'accounts/login.html')
 
 
 # ฟังก์ชันออกจากระบบ
 def logout_view(request):
     logout(request)
     return redirect('login')
+
 
 
