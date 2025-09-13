@@ -2,14 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Classroom(models.Model):
-    code = models.CharField(max_length=10)
+     STATUS_CHOICES = [
+        ('available', 'เปิดให้จอง'),
+        ('unavailable', 'ไม่พร้อมใช้งาน'),
+        ('maintenance', 'ปิดปรับปรุง'),
+    ]
+    code = models.CharField(max_length=20, unique=True, default='RM000'))
     name = models.CharField(max_length=100)
     capacity = models.IntegerField()
-    total_hours = models.IntegerField()
-    is_available = models.BooleanField(default=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
 
     def __str__(self):
-        return self.name
+        return f"{self.code} - {self.name}"
 
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -18,4 +22,5 @@ class Booking(models.Model):
     hour = models.IntegerField()
 
     def __str__(self):
-        return f"{self.user.username} - {self.classroom.name} - {self.date} - {self.hour}"
+        return f"{self.classroom.code} | {self.date} | {self.hour}"
+
