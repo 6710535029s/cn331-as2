@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
-from .models import Booking
+from .models import Classroom, Booking
+from datetime import time
 
 # หน้าแรกของระบบ (หลัง login)
 def home_view(request):
@@ -57,6 +58,7 @@ def booking_page(request, classroom_id):
     classroom = get_object_or_404(Classroom, id=classroom_id)
     
 return render(request, 'booking/booking_page.html', context)
+
 
 
 
