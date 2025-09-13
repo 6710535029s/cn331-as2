@@ -110,7 +110,7 @@
   <header>
     <div class="username">ชื่อผู้ใช้: {{ request.user.username }}</div>
     <div class="header-actions">
-      <a href="{% url 'home_view' %}" class="nav-btn">🏠 Home</a>
+      <a href="{% url 'home' %}" class="nav-btn">🏠 Home</a>
       <a href="{% url 'logout' %}" class="nav-btn">⎋ Logout</a>
     </div>
   </header>
@@ -130,7 +130,7 @@
             <button class="confirm-btn" disabled>✔ จองแล้ว</button>
             <form method="POST" action="{% url 'cancel_booking' booking.id %}">
               {% csrf_token %}
-              <button type="submit" class="cancel-btn">ยกเลิก</button>
+              <button type="submit">ยกเลิก</button>
             </form>
           </div>
         </div>

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
 from .models import Classroom, Booking
 from django.utils import timezone
-from datetime import datetime, time, timedelta
+from datetime import datetime, timedelta
 
 # หน้าแรกของระบบ (หลัง login)
 @login_required(login_url='login')
@@ -31,30 +31,14 @@ def my_bookings(request):
 def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
     if request.method == 'POST':
-        booking.delete()
-        return redirect('user_profile')
-
-    
-# ติดต่อส่งชื่อ username ไปที่ user_profile
-@login_required(login_url='login')
-def user_profile_view(request):
-    bookings = Booking.objects.filter(user=request.user)
-    return render(request, 'booking/user_profile.html', {'bookings': bookings})
-
-    
-# cancel booking
-@login_required
-def cancel_booking(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    if request.method == 'POST':
-        # คืน available_hours ให้ห้องเรียน
-        duration = (datetime.combine(booking.booking_date, booking.end_time) -
-                    datetime.combine(booking.booking_date, booking.start_time)).seconds // 3600
+        # คืน available_hours ให้ห้องเรียน (ถ้าใช้ IntegerField)
+        duration = (datetime.combine(booking.date, booking.end_time) -
+                    datetime.combine(booking.date, booking.start_time)).seconds // 3600
         booking.classroom.available_hours += duration
         booking.classroom.save()
         booking.delete()
         messages.success(request, "ยกเลิกการจองเรียบร้อยแล้ว")
-        return redirect('user_profile')
+    return redirect('user_profile')
 
 # หน้าจองห้อง
 @login_required
@@ -86,8 +70,4 @@ def booking_page(request, classroom_id):
                 messages.success(request, "จองห้องเรียนเรียบร้อยแล้ว")
                 return redirect('user_profile')
 
-    context = {
-        'room': room,
-    }
-    return render(request, 'booking/my_booking.html', context)
-
+    return render(request, 'booking/my_booking.html', {'room': room})

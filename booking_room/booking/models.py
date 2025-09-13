@@ -12,6 +12,7 @@ class Classroom(models.Model):
     code = models.CharField(max_length=20, unique=True, default='RM000')
     name = models.CharField(max_length=100, default='ห้องเรียนทั่วไป')
     capacity = models.PositiveIntegerField(default=30)
+    available_hours = models.PositiveIntegerField(default=8)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
 
     def __str__(self):
