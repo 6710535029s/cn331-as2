@@ -38,11 +38,11 @@ def cancel_booking(request, booking_id):
         return redirect('user_profile')
 
     
-# ติดต่อส่งชื่อ username ไปที่ my_booking.py
+# ติดต่อส่งชื่อ username ไปที่ user_profile
 @login_required(login_url='login')
 def user_profile_view(request):
     bookings = Booking.objects.filter(user=request.user)
-    return render(request, 'booking/my_booking.html', {'bookings': bookings})
+    return render(request, 'booking/user_profile.html', {'bookings': bookings})
 
     
 # cancel booking
@@ -89,5 +89,6 @@ def booking_page(request, classroom_id):
 
   
     return render(request, 'booking/my_booking.html', context)
+
 
 
