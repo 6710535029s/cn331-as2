@@ -21,7 +21,6 @@ def register_view(request):
 
     return render(request, 'booking/register.html')
 
-
 # ฟังก์ชันเข้าสู่ระบบ
 def login_view(request):
     if request.method == 'POST':
@@ -39,4 +38,3 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
