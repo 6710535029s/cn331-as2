@@ -3,38 +3,121 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>จองห้องเรียน 01</title>
-  
+  <title>จองห้องเรียน</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #b30000;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .room-image {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .capacity {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .calendar {
+      margin-bottom: 20px;
+    }
+
+    .schedule label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .submit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #388E3C;
+    }
+
+    .message {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .home-link {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      float: right;
+      margin-top: -40px;
+    }
+  </style>
 </head>
 <body>
 
   <header>
-    <h1>ห้องเรียน 01</h1>
-    <a href="/home" class="home-link">Home</a>
+    <h1>จองห้องเรียน {{ room.room_name }}</h1>
+    <a href="/home" class="home-link">🏠 กลับหน้า Home</a>
   </header>
 
   <div class="container">
-    <img src="room.jpg" alt="ภาพห้องเรียน 101" class="room-image">
+    <img src="/static/images/room.jpg" alt="ภาพห้องเรียน" class="room-image">
 
-    <div class="capacity">ความจุ: 40 คน</div>
+    <div class="capacity">ความจุ: {{ room.capacity }} คน</div>
 
-    <div class="calendar">
-      <label for="booking-date">เลือกวันที่:</label><br>
-      <input type="date" id="booking-date" name="booking-date">
-    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="message">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
 
-    <h3>ตารางเวลา</h3>
-    <div class="schedule">
-      <div class="slot available">08:00 - 09:00<br>ว่าง</div>
-      <div class="slot unavailable">09:00 - 10:00<br>ไม่ว่าง</div>
-      <div class="slot available">10:00 - 11:00<br>ว่าง</div>
-      <div class="slot unavailable">11:00 - 12:00<br>ไม่ว่าง</div>
-      <div class="slot available">12:00 - 13:00<br>ว่าง</div>
-      <div class="slot available">13:00 - 14:00<br>ว่าง</div>
-      <div class="slot unavailable">14:00 - 15:00<br>ไม่ว่าง</div>
-      <div class="slot available">15:00 - 16:00<br>ว่าง</div>
-      <div class="slot unavailable">16:00 - 17:00<br>ไม่ว่าง</div>
-    </div>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="calendar">
+        <label for="booking-date">เลือกวันที่:</label>
+        <input type="date" id="booking-date" name="date" required>
+      </div>
+
+      <h3>เลือกช่วงเวลา (ครั้งละ 1 ชั่วโมง):</h3>
+      <div class="schedule">
+        <label><input type="radio" name="time_slot" value="08:00" required> 08:00 - 09:00</label>
+        <label><input type="radio" name="time_slot" value="09:00"> 09:00 - 10:00</label>
+        <label><input type="radio" name="time_slot" value="10:00"> 10:00 - 11:00</label>
+        <label><input type="radio" name="time_slot" value="11:00"> 11:00 - 12:00</label>
+        <label><input type="radio" name="time_slot" value="12:00"> 12:00 - 13:00</label>
+        <label><input type="radio" name="time_slot" value="13:00"> 13:00 - 14:00</label>
+        <label><input type="radio" name="time_slot" value="14:00"> 14:00 - 15:00</label>
+        <label><input type="radio" name="time_slot" value="15:00"> 15:00 - 16:00</label>
+        <label><input type="radio" name="time_slot" value="16:00"> 16:00 - 17:00</label>
+      </div>
+
+      <button type="submit" class="submit-btn">ยืนยันการจอง</button>
+    </form>
   </div>
 
 </body>
