@@ -7,6 +7,9 @@ from .forms import BookingForm
 from .models import Classroom, Booking
 from django.utils import timezone
 from datetime import datetime,time
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Classroom, Booking
+from .forms import BookingForm
 
 # หน้าแรกของระบบ (หลัง login)
 @login_required(login_url='login')
@@ -59,6 +62,32 @@ def cancel_booking(request, booking_id):
 #mybooking
 @login_required
 def booking_page(request, classroom_id):
+    room = get_object_or_404(Classroom, id=classroom_id)
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        # ตรวจสอบว่าช่วงเวลานี้ถูกจองไปแล้วหรือยัง
+        if form.is_valid():
+            date = form.cleaned_data['date']
+            time_slot = form.cleaned_data['time_slot']
+            if Booking.objects.filter(room=room, date=date, time_slot=time_slot).exists():
+                form.add_error(None, 'ช่วงเวลานี้ถูกจองแล้ว')
+            else:
+                Booking.objects.create(
+                    room=room,
+                    date=date,
+                    time_slot=time_slot,
+                    user=request.user
+                )
+                return redirect('booking_success')
+
+
+    context = {
+        'room': room,
+        
+    }
+
   
-    return render(request, 'booking/my_booking.html')
+    return render(request, 'booking/my_booking.html', context)
+
 
