@@ -1,4 +1,5 @@
 <!-- หน้านี้เป็นหน้า User Profile ที่ผู้ใช้สามารถดูรายการห้องที่ตัวเองจองไว้ได้ และมีปุ่มกดยกเลิก -->
+<!-- user_profile.html -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -79,12 +80,8 @@
       border: none;
       padding: 8px 12px;
       border-radius: 4px;
-      cursor: pointer;
+      cursor: default;
       font-size: 14px;
-    }
-
-    .confirm-btn:hover {
-      background-color: #388E3C;
     }
 
     .cancel-btn {
@@ -100,56 +97,49 @@
     .cancel-btn:hover {
       background-color: #d32f2f;
     }
+
+    .no-booking {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <!-- ใช้ request.user.username เพื่อแสดงชื่อผู้ใช้ -->
     <div class="username">ชื่อผู้ใช้: {{ request.user.username }}</div>
     <div class="header-actions">
-      <a href="/home" class="nav-btn" title="กลับสู่หน้า Home">🏠 Home</a>
-      <a href="/logout" class="nav-btn" title="ออกจากระบบ">⎋ Logout</a>
+      <a href="{% url 'home_view' %}" class="nav-btn">🏠 Home</a>
+      <a href="{% url 'logout' %}" class="nav-btn">⎋ Logout</a>
     </div>
   </header>
 
   <div class="container">
     <h2>รายการห้องที่คุณจอง</h2>
 
-    <div class="booking-item">
-      <div class="room-name">ห้องเรียน 101</div>
-      <div class="action-buttons">
-        <button class="confirm-btn">ยืนยัน</button>
-        <form method="POST" action="/cancel/1/">
-          {% csrf_token %}
-          <button type="submit" class="cancel-btn">ยกเลิก</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="booking-item">
-      <div class="room-name">ห้องประชุม A</div>
-      <div class="action-buttons">
-        <button class="confirm-btn">ยืนยัน</button>
-        <form method="POST" action="/cancel/2/">
-          {% csrf_token %}
-          <button type="submit" class="cancel-btn">ยกเลิก</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="booking-item">
-      <div class="room-name">ห้องเรียน 202</div>
-      <div class="action-buttons">
-        <button class="confirm-btn">ยืนยัน</button>
-        <form method="POST" action="/cancel/3/">
-          {% csrf_token %}
-          <button type="submit" class="cancel-btn">ยกเลิก</button>
-        </form>
-      </div>
-    </div>
+    {% if bookings %}
+      {% for booking in bookings %}
+        <div class="booking-item">
+          <div class="room-name">
+            {{ booking.classroom.name }} <br>
+            วันที่: {{ booking.date }} <br>
+            เวลา: {{ booking.start_time|time:"H:i" }} - {{ booking.end_time|time:"H:i" }}
+          </div>
+          <div class="action-buttons">
+            <button class="confirm-btn" disabled>✔ จองแล้ว</button>
+            <form method="POST" action="{% url 'cancel_booking' booking.id %}">
+              {% csrf_token %}
+              <button type="submit" class="cancel-btn">ยกเลิก</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-booking">คุณยังไม่มีการจองห้องเรียนในระบบ</div>
+    {% endif %}
   </div>
 
 </body>
 </html>
-
