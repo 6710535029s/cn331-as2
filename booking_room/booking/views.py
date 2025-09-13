@@ -8,7 +8,8 @@ from .models import Booking
 
 # หน้าแรกของระบบ (หลัง login)
 def home_view(request):
-    return render(request, 'booking/home.html')
+    classrooms = Classroom.objects.filter(status='available')
+    return render(request, 'booking/home.html', {'classrooms': classrooms})
 
 # ฟังก์ชันสมัครสมาชิก
 def register_view(request):
@@ -48,5 +49,6 @@ def logout_view(request):
 def user_profile_view(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'booking/user_profile.html', {'bookings': bookings})
+
 
 
