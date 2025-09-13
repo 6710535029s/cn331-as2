@@ -11,40 +11,6 @@ from datetime import time
 def home_view(request):
     classrooms = Classroom.objects.filter(status='available')
     return render(request, 'booking/home.html', {'classrooms': classrooms})
-
-# ฟังก์ชันสมัครสมาชิก
-def register_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        confirm = request.POST['confirm']
-        # ตรวจสอบว่ารหัสผ่านตรงกันหรือไม่
-        if password == confirm:
-            User.objects.create_user(username=username, password=password)
-            messages.success(request, 'สมัครสมาชิกสำเร็จ')
-            return redirect('login')
-        else:
-            messages.error(request, 'รหัสผ่านไม่ตรงกัน')
-    return render(request, 'booking/register.html')
-
-# ฟังก์ชันเข้าสู่ระบบ
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        # ตรวจสอบชื่อผู้ใช้และรหัสผ่าน
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('home')  # ไปหน้าแรกหลัง login
-        else:
-            messages.error(request, 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง')
-    return render(request, 'booking/login.html')
-
-# ฟังก์ชันออกจากระบบ
-def logout_view(request):
-    logout(request)
-    return redirect('login')
     
 # หน้าโปรไฟล์ผู้ใช้
 @login_required(login_url='login')
@@ -58,6 +24,7 @@ def booking_page(request, classroom_id):
     classroom = get_object_or_404(Classroom, id=classroom_id)
     
 return render(request, 'booking/booking_page.html', context)
+
 
 
 
