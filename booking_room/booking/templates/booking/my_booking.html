@@ -1,65 +1,40 @@
 <!--หน้านี้จะเป็นหน้าที่ขึ้นมาเมื่อผู้ใช้เลือกห้องที่ต้องการจากหน้าHome หน้านี้จะมีวันให้เลือก และตารางเวลาห้อง ที่เลทอกได้ตั้งแต่8.00-17.00 น.ได้แค่ครั้งละ1ชั่วโมง--> 
-{% load static %}
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>ตารางเวลาห้องเรียน</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f5f5;
-      padding: 30px;
-    }
-
-    h2 {
-      text-align: center;
-      color: #b30000;
-      margin-bottom: 30px;
-    }
-
-    .schedule {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .slot {
-      padding: 15px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      color: white;
-      font-size: 16px;
-    }
-
-    .available {
-      background-color: #4CAF50;
-    }
-
-    .unavailable {
-      background-color: #f44336;
-    }
-  </style>
+  <title>จองห้องเรียน 01</title>
+  
 </head>
 <body>
 
-  <h2>ตารางเวลาห้องเรียน {{ classroom.name }}</h2>
+  <header>
+    <h1>ห้องเรียน 01</h1>
+    <a href="/home" class="home-link">Home</a>
+  </header>
 
-  <div class="schedule">
-    {% for hour in available_hours %}
-      {% if hour in booked_hours %}
-        <div class="slot unavailable">
-          {{ hour|time:"H:i" }} - {{ hour|add:"1"|time:"H:i" }}<br>ไม่ว่าง
-        </div>
-      {% else %}
-        <div class="slot available">
-          {{ hour|time:"H:i" }} - {{ hour|add:"1"|time:"H:i" }}<br>ว่าง
-        </div>
-      {% endif %}
-    {% endfor %}
+  <div class="container">
+    <img src="room.jpg" alt="ภาพห้องเรียน 101" class="room-image">
+
+    <div class="capacity">ความจุ: 40 คน</div>
+
+    <div class="calendar">
+      <label for="booking-date">เลือกวันที่:</label><br>
+      <input type="date" id="booking-date" name="booking-date">
+    </div>
+
+    <h3>ตารางเวลา</h3>
+    <div class="schedule">
+      <div class="slot available">08:00 - 09:00<br>ว่าง</div>
+      <div class="slot unavailable">09:00 - 10:00<br>ไม่ว่าง</div>
+      <div class="slot available">10:00 - 11:00<br>ว่าง</div>
+      <div class="slot unavailable">11:00 - 12:00<br>ไม่ว่าง</div>
+      <div class="slot available">12:00 - 13:00<br>ว่าง</div>
+      <div class="slot available">13:00 - 14:00<br>ว่าง</div>
+      <div class="slot unavailable">14:00 - 15:00<br>ไม่ว่าง</div>
+      <div class="slot available">15:00 - 16:00<br>ว่าง</div>
+      <div class="slot unavailable">16:00 - 17:00<br>ไม่ว่าง</div>
+    </div>
   </div>
 
 </body>
