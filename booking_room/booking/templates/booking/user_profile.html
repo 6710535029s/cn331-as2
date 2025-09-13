@@ -1,149 +1,153 @@
-<!--หน้านี้เป็นหน้า User Profile ที่ผู้ใช้สามารถ ดูรายการห้องที่ตัวเองจองไว้ได้ และมีปุ่มกดยกเลิก มุมขวาบนจะมีกากบาทเพื่อออกจากหน้านี้และกลับสู่หน้าHome-->
-{% load static %}
+<!-- หน้านี้เป็นหน้า User Profile ที่ผู้ใช้สามารถดูรายการห้องที่ตัวเองจองไว้ได้ และมีปุ่มกดยกเลิก -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>จองห้องเรียน {{ classroom.name }}</title>
+  <title>โปรไฟล์ผู้ใช้</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f5f5;
       margin: 0;
-      padding: 30px;
+      padding: 0;
+      background-color: #f5f5f5;
     }
 
-    h1, h2 {
-      text-align: center;
+    header {
+      background-color: #b30000;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .username {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      font-size: 18px;
+      text-decoration: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid white;
+      transition: background-color 0.3s;
+    }
+
+    .nav-btn:hover {
+      background-color: white;
       color: #b30000;
     }
 
     .container {
-      max-width: 900px;
-      margin: 0 auto;
+      max-width: 800px;
+      margin: 30px auto;
       background-color: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    .calendar {
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
-    .calendar input {
-      padding: 10px;
-      font-size: 16px;
-      width: 250px;
-    }
-
-    .schedule {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .slot {
-      padding: 15px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      color: white;
-      font-size: 16px;
-    }
-
-    .available {
-      background-color: #4CAF50;
-    }
-
-    .unavailable {
-      background-color: #f44336;
-    }
-
-    .bookings {
-      margin-top: 40px;
-    }
-
     .booking-item {
-      background-color: #e0e0e0;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
     }
 
-    .form-section {
-      margin-top: 30px;
-      text-align: center;
+    .room-name {
+      font-size: 18px;
+      color: #333;
     }
 
-    .form-section button {
-      background-color: #b30000;
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .confirm-btn {
+      background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 6px;
+      padding: 8px 12px;
+      border-radius: 4px;
       cursor: pointer;
+      font-size: 14px;
     }
 
-    .form-section button:hover {
-      background-color: #990000;
+    .confirm-btn:hover {
+      background-color: #388E3C;
+    }
+
+    .cancel-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .cancel-btn:hover {
+      background-color: #d32f2f;
     }
   </style>
 </head>
 <body>
 
+  <header>
+    <div class="username">ชื่อผู้ใช้: คุณสมชาย</div>
+    <div class="header-actions">
+      <a href="/home" class="nav-btn" title="กลับสู่หน้า Home">🏠 Home</a>
+      <a href="/logout" class="nav-btn" title="ออกจากระบบ">⎋ Logout</a>
+    </div>
+  </header>
+
   <div class="container">
-    <h1>จองห้องเรียน {{ classroom.name }}</h1>
+    <h2>รายการห้องที่คุณจอง</h2>
 
-    <form method="post">
-      {% csrf_token %}
-      <div class="calendar">
-        <label for="id_date">เลือกวันที่:</label><br>
-        {{ form.date }}
+    <div class="booking-item">
+      <div class="room-name">ห้องเรียน 101</div>
+      <div class="action-buttons">
+        <button class="confirm-btn">ยืนยัน</button>
+        <form method="POST" action="/cancel/1/">
+          {% csrf_token %}
+          <button type="submit" class="cancel-btn">ยกเลิก</button>
+        </form>
       </div>
+    </div>
 
-      <h2>ตารางเวลา</h2>
-      <div class="schedule">
-        {% for hour in available_hours %}
-          {% if hour in booked_hours %}
-            <div class="slot unavailable">
-              {{ hour|time:"H:i" }} - {{ hour|add:"1"|time:"H:i" }}<br>ไม่ว่าง
-            </div>
-          {% else %}
-            <label>
-              <input type="radio" name="hour" value="{{ hour }}" style="display:none;">
-              <div class="slot available">
-                {{ hour|time:"H:i" }} - {{ hour|add:"1"|time:"H:i" }}<br>ว่าง
-              </div>
-            </label>
-          {% endif %}
-        {% endfor %}
+    <div class="booking-item">
+      <div class="room-name">ห้องประชุม A</div>
+      <div class="action-buttons">
+        <button class="confirm-btn">ยืนยัน</button>
+        <form method="POST" action="/cancel/2/">
+          {% csrf_token %}
+          <button type="submit" class="cancel-btn">ยกเลิก</button>
+        </form>
       </div>
+    </div>
 
-      <div class="form-section">
-        <button type="submit">จองห้องนี้</button>
+    <div class="booking-item">
+      <div class="room-name">ห้องเรียน 202</div>
+      <div class="action-buttons">
+        <button class="confirm-btn">ยืนยัน</button>
+        <form method="POST" action="/cancel/3/">
+          {% csrf_token %}
+          <button type="submit" class="cancel-btn">ยกเลิก</button>
+        </form>
       </div>
-    </form>
-
-    <div class="bookings">
-      <h2>รายการห้องที่คุณจอง</h2>
-      {% for booking in bookings %}
-        <div class="booking-item">
-          {{ booking.classroom.name }} | {{ booking.date }} | {{ booking.hour|time:"H:i" }}
-        </div>
-      {% empty %}
-        <p style="text-align:center;">ยังไม่มีการจอง</p>
-      {% endfor %}
     </div>
   </div>
 
 </body>
 </html>
-
-
-
-
