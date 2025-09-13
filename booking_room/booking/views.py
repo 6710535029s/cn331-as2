@@ -33,11 +33,16 @@ def cancel_booking(request, booking_id):
         booking.delete()
         return redirect('user_profile')
     
-# cancle booking
+# cancel booking
 @login_required
 def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
     if request.method == 'POST':
+        # คืน available_hours ให้ห้องเรียน
+        duration = (datetime.combine(booking.booking_date, booking.end_time) -
+                    datetime.combine(booking.booking_date, booking.start_time)).seconds // 3600
+        booking.classroom.available_hours += duration
+        booking.classroom.save()
         booking.delete()
         messages.success(request, "ยกเลิกการจองเรียบร้อยแล้ว")
         return redirect('user_profile')
