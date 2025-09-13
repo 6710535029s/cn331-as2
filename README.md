@@ -8,7 +8,7 @@
 # CN331 Assignment 2 – Classroom Booking
 ## Members
 - 6710535029 – นายวุฒิศักดิ์ บุญกัน
-- 67xxxxxxx – 
+- 6710525038 – นางสาวเอมมิตรา แสวงทรัพย์
 
 ## Features
 - Login/Logout (admin, users)
