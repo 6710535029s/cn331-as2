@@ -55,7 +55,10 @@ def booking_page(request, classroom_id):
             date = datetime.strptime(date_str, "%Y-%m-%d").date()
             start_time = datetime.strptime(time_str, "%H:%M").time()
             end_time = (datetime.combine(date, start_time) + timedelta(hours=1)).time()
-
+            # ตรวจสอบว่าห้องเรียนพร้อมใช้งาน
+            if room.status != 'available':
+                messages.error(request, "ห้องเรียนนี้ไม่พร้อมใช้งาน")
+                return render(request, 'booking/my_booking.html', {'room': room})
             # ตรวจสอบว่าช่วงเวลานี้ถูกจองแล้วหรือยัง
             if Booking.objects.filter(classroom=room, date=date, start_time=start_time).exists():
                 messages.error(request, "ช่วงเวลานี้ถูกจองแล้ว")

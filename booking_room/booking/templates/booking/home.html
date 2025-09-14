@@ -117,7 +117,7 @@
       {% for room in classrooms %}
         <div class="room">
           <a href="{% url 'booking_page' room.id %}?date=2025-09-14">
-            <img src="{% static 'images/room.jpg' %}" alt="{{ room.name }}">
+          
             <p>{{ room.name }}</p>
           </a>
         </div>

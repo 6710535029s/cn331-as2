@@ -108,7 +108,7 @@
 <body>
 
   <header>
-    <div class="username">ชื่อผู้ใช้: {{ request.user.username }}</div>
+    <div class="username">ชื่อผู้ใช้: {{request.user.username}}</div>
     <div class="header-actions">
       <a href="{% url 'home' %}" class="nav-btn">🏠 Home</a>
       <a href="{% url 'logout' %}" class="nav-btn">⎋ Logout</a>
