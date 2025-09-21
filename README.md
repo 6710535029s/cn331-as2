@@ -15,8 +15,11 @@
 - User สามารถยกเลิกการจองห้องโดยกดที่ปุ่มยกเลิก
 
 ## Present
-- https://youtu.be/KdhCKFSpDtw?si=AOQIFcIESsU3nbh2 (AS02)
-- https://youtu.be/EvdOQEjnJxI?si=CAmiC07FCi7rXh-J (AS03)
+
+1. Web Application Booking room
+- https://youtu.be/KdhCKFSpDtw?si=AOQIFcIESsU3nbh2
+2. สาธิตการใช้งานเว็บ
+- https://youtu.be/EvdOQEjnJxI?si=CAmiC07FCi7rXh-J
 
 
 ## Deploy 
