@@ -16,7 +16,7 @@
 
 ## Present
 
-1. Web Application Booking room
+1. อธิบาย feature
 - https://youtu.be/KdhCKFSpDtw?si=AOQIFcIESsU3nbh2
 2. สาธิตการใช้งานเว็บ
 - https://youtu.be/EvdOQEjnJxI?si=CAmiC07FCi7rXh-J
