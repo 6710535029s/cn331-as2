@@ -1,4 +1,4 @@
-# CN331 Assignment 2 – Classroom Booking
+# CN331 Assignment 3 – Classroom Booking
 ## Members
 - 6710525038 – นางสาวเอมมิตรา แสวงทรัพย์
 - 6710535029 – นายวุฒิศักดิ์ บุญกัน
@@ -15,7 +15,8 @@
 - User สามารถยกเลิกการจองห้องโดยกดที่ปุ่มยกเลิก
 
 ## Present
-- https://youtu.be/KdhCKFSpDtw?si=AOQIFcIESsU3nbh2
+- https://youtu.be/KdhCKFSpDtw?si=AOQIFcIESsU3nbh2 (AS02)
+- https://youtu.be/EvdOQEjnJxI?si=CAmiC07FCi7rXh-J (AS03)
 
 
 ## Deploy 
